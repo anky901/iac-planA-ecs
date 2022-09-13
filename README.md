@@ -25,6 +25,8 @@ Configure AWS access & secrey key in your local to run this terraform project :
  - aws configure
  # keep your access , secret key handy.
  # decide the aws region you would want to deploy(I took us-east-1)
+ 
+ - git clone https://github.com/anky901/iac-planA-ecs.git
 
 Always run terraform fmt to format terraform configuration files and make them neat.
   - terraform validate
