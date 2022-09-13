@@ -20,7 +20,7 @@ locals {
 
   environment = lower(var.environment)
   region      = var.region
-  # Create a list of AZ IDs we will use. Based on the VPC design, we only use the first 2 available.
+  
   selected_availability_zone_ids = flatten([
     for az_index in [0, 1] : [
       data.aws_availability_zones.available.zone_ids[az_index]
@@ -29,10 +29,10 @@ locals {
 
   propernets = [
     # The cidrsubnets() function splits a CIDR network by adding the specified number of bits to the original suffix.
-    # In our case, we are taking a /20 and adding 2 bits, 2 separate times (one for each AZ), which will give us 2 x /22s.
+    # In this case, taking a /20 and adding 2 bits, 2 separate times (one for each AZ), which will give us 2 x /22s.
     for propernet in cidrsubnets(local.cidr_block, 2, 2) :
 
-    # Then, each /22 will be further split it into two subnets:
+    # Then, each /22 will be split it into two subnets:
     # /24 (public)
     # /23 (private)
     cidrsubnets(propernet, 2, 1)
